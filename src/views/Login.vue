@@ -110,6 +110,7 @@ export default {
           this.$router.push("/admin/users");
         }
       } catch (error) {
+        this.isProcessing = false;
         Toast.fire({
           icon: "error",
           title: `無法登入，請稍後再試。錯誤原因：${error}`,

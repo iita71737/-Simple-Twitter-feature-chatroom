@@ -19,9 +19,9 @@ git commit -m 'deploy'
 
 # if you are deploying to https://<USERNAME>.Github.io/<REPO>
 # git push -f https://github.com/<USERNAME>/<REPO>.git main:gh-pages
-#CH's github
-git push -f https://github.com/CHLin13/twitter-front-end.git master:gh-pages
-
+# main deploy repo on github
+#git push -f https://github.com/CHLin13/twitter-front-end.git master:gh-pages
+# sub deploy repo for hackson on github 
 #git push -f https://github.com/iita71737/twitter-front-end.git main:gh-pages
 
 cd -

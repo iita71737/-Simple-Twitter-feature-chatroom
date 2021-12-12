@@ -2,7 +2,8 @@
   <div class="chat-room-container">
     <UserSidebar class="sidebar-section" />
     <ChatRoomSection
-      :self-msg="selfMsg"
+      :text-objs="textObjs"
+      :online-users="onlineUsers"
       @after-sent-text="send"
       class="chat-room-section"
     />
@@ -12,6 +13,7 @@
 <script>
 import UserSidebar from "../components/UserSidebar.vue";
 import ChatRoomSection from "../components/ChatRoomSection.vue";
+import usersAPI from "../apis/users";
 import { mapState } from "vuex";
 
 export default {
@@ -21,37 +23,67 @@ export default {
   },
   data() {
     return {
-      input: "",
-      msg: "",
-      selfMsg: "",
+      textObjs: this.historyTexts,
+      onlineUsers: [],
+      id: -1,
     };
   },
-  computed: {
-    ...mapState(["currentUser"]),
-  },
-  methods: {
-    console() {
-      console.log(window.location);
+  watch: {
+    historyTexts: {
+      immediate: true,
+      handler() {
+        this.textObjs = this.historyTexts;
+      },
     },
+  },
+  computed: {
+    ...mapState(["currentUser", "historyTexts"]),
+  },
+  async created() {
+    let { data } = await usersAPI.getCurrentUser();
+    console.log(data);
+    this.id = data.id;
+    this.$socket.emit("getCurrentUserId", data.id);
+  },
+
+  methods: {
     // 從 ChatRoomSection.vue 拿到資料後透過 socket 傳送訊息給後端
     send(text) {
+      if (text == "") return;
       this.$socket.emit("emit_method", {
         msg: text,
         userId: this.currentUser.id,
       });
-      this.input = "";
     },
+  },
+  beforeRouteLeave(to, from, next) {
+    console.log(to, from);
+    this.$socket.emit("leave", this.id);
+    next();
   },
   sockets: {
     connect() {
       console.log("socket connected");
     },
-    self(data) {
-      console.log("self");
-      console.log(data);
-      if (data.msg !== "") {
-        this.selfMsg = data.msg;
+    disconnect() {
+      console.log("socket disconnected");
+    },
+    error() {
+      console.log("socket error");
+    },
+    historyTexts(data) {
+      if (!this.historyTexts || this.historyTexts.length == 0) {
+        this.$store.commit("SOCKET_fetchHistoryTexts", data);
       }
+    },
+    onlineUsers(data) {
+      console.log("onlineusers", data);
+      this.onlineUsers = data;
+    },
+    single_thread(data) {
+      // emit 資料到後端後，後端廣播回來的資料從這裡拿
+      console.log("single_thread", data);
+      this.textObjs.push(data[0]);
     },
   },
 };

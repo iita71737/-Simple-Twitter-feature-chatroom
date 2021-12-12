@@ -48,7 +48,7 @@
               <span>設定</span>
             </router-link>
           </li>
-          <li class="list-item">
+          <!-- <li class="list-item">
             <router-link
               :to="{ name: 'chat' }"
               :class="{
@@ -61,7 +61,7 @@
               />
               公開聊天室
             </router-link>
-          </li>
+          </li> -->
           <li class="list-item">
             <router-link
               :to="{ name: 'inbox' }"

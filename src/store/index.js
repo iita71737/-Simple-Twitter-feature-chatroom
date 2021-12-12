@@ -20,6 +20,9 @@ export default new Vuex.Store({
     },
     isAuthenticated: false,
     token: '',
+    // 拿取歷史訊息
+    historyTexts: [],
+    onlineUsers: [],
   },
   mutations: {
     setCurrentUser(state, currentUser) {
@@ -35,6 +38,13 @@ export default new Vuex.Store({
       state.isAuthenticated = false
       localStorage.removeItem('simpleTwitter-token')
     },
+    // 拿取歷史訊息
+    SOCKET_fetchHistoryTexts(state, textObjs) {
+      state.historyTexts = textObjs
+    },
+    SOCKET_fetchOnlineUsers(state, user) {
+      state.onlineUsers.push(user)
+    }
   },
   actions: {
     async fetchCurrentUser({ commit }) {
