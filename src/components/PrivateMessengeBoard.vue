@@ -136,6 +136,11 @@ export default {
         targetChannel: this.targetChannel,
       });
       this.message = "";
+      const scroll = this.$refs.boardWrapper;
+      if (scroll) {
+        scroll.scrollTop = scroll.scrollHeight;
+        scroll.animate({ scrollTop: scroll.scrollHeight });
+      }
     },
   },
 };

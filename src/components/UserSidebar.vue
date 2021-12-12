@@ -33,7 +33,10 @@
                 focus: this.$route.path === `/chatroom`,
               }"
             >
-              <font-awesome-icon class="icon" icon="cog" />
+              <img
+                class="icon msg-noti"
+                src="../assets/svgs/icon_msg_noti.svg"
+              />
               <span>公開聊天室</span>
             </router-link>
           </li>
@@ -46,39 +49,6 @@
             >
               <font-awesome-icon class="icon" icon="cog" />
               <span>設定</span>
-            </router-link>
-          </li>
-          <!-- <li class="list-item">
-            <router-link
-              :to="{ name: 'chat' }"
-              :class="{
-                focus: $route.path === '/chat',
-              }"
-            >
-              <img
-                class="icon msg-noti"
-                src="../assets/svgs/icon_msg_noti.svg"
-              />
-              公開聊天室
-            </router-link>
-          </li> -->
-          <li class="list-item">
-            <router-link
-              :to="{ name: 'inbox' }"
-              :class="{
-                focus: $route.path === '/privateChat',
-              }"
-            >
-              <div class="unread-noti">
-                {{ 15 }}
-              </div>
-
-              <img
-                class="icon message"
-                src="../assets/svgs/icon_msg_noti.svg"
-              />
-
-              私人訊息
             </router-link>
           </li>
         </ul>
