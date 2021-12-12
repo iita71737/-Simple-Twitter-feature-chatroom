@@ -49,7 +49,6 @@ export default {
     // 在 created 鉤開始監聽 toastMessage 事件
     this.$bus.$on("changeFromTrends", () => {
       // 並將接收到的資訊傳給 messageSetting 去觸發 toast 事件。
-      console.log("test bus on catch event");
       this.fetchFollowList();
     });
     this.userId = this.$route.params.id;

@@ -20,22 +20,26 @@
     </div>
     <div class="chat-room">
       <div class="title">公開聊天室</div>
-      <div class="chat-display-section">
-        <div
-          v-for="textObj in textObjs"
-          :key="textObj.id"
-          class="dialogue"
-          :class="textObj.User2Id === currentUser.id ? 'currentuser' : 'others'"
-        >
-          <img
-            v-if="textObj.User2Id !== currentUser.id"
-            :src="textObj.User2.avatar | emptyImage"
-            class="avatar"
-            alt="avatar"
-          />
-          <div class="desc">
-            <div class="input">{{ textObj.message }}</div>
-            <div class="time">{{ textObj.createdAt | fromNow }}</div>
+      <div class="chat-room-container">
+        <div class="chat-display-section">
+          <div
+            v-for="textObj in textObjs"
+            :key="textObj.id"
+            class="dialogue"
+            :class="
+              textObj.User2Id === currentUser.id ? 'currentuser' : 'others'
+            "
+          >
+            <img
+              v-if="textObj.User2Id !== currentUser.id"
+              :src="textObj.User2.avatar | emptyImage"
+              class="avatar"
+              alt="avatar"
+            />
+            <div class="desc">
+              <div class="input">{{ textObj.message }}</div>
+              <div class="time">{{ textObj.createdAt | fromNow }}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -96,6 +100,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.chat-room-container {
+  display: flex;
+  flex-direction: column-reverse;
+  flex: 1;
+}
+
 .chat-room-section {
   border: 1px solid #e6ecf0;
   display: flex;
@@ -146,6 +156,7 @@ export default {
   .chat-room {
     display: flex;
     flex-direction: column;
+    overflow: scroll;
     flex: 1;
     .title {
       border-bottom: 1px solid #e6ecf0;
@@ -156,9 +167,6 @@ export default {
     }
     .chat-display-section {
       padding: 15px;
-      flex: 1;
-      height: 100%;
-      overflow: scroll;
       .dialogue {
         display: flex;
         margin-bottom: 15px;
@@ -167,7 +175,7 @@ export default {
           font-size: 13px;
         }
       }
-      .other {
+      .others {
         .avatar {
           margin-right: 10px;
         }

@@ -25,19 +25,17 @@ $lightdark: #9197a3;
 $divider: #e6ecf0;
 .private-main {
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  position: relative;
   margin: 0 auto;
+  flex-flow: row nowrap;
   width: 1440px;
   max-width: 1440px;
-
-  .private-container {
-    width: 100%;
-    max-height: 100vh;
-    overflow-y: scroll;
-    border-left: 1px solid $divider;
-    padding: 0;
+  .chat-room-section {
+    flex: 1;
+    width: 26.7%;
+  }
+  .sidebar-section {
+    width: 26.7%;
+    padding-left: 95px;
   }
 }
 </style>

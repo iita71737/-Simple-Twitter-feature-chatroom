@@ -41,7 +41,6 @@ export default {
   },
   async created() {
     let { data } = await usersAPI.getCurrentUser();
-    console.log(data);
     this.id = data.id;
     this.$socket.emit("getCurrentUserId", data.id);
   },
@@ -57,34 +56,19 @@ export default {
     },
   },
   beforeRouteLeave(to, from, next) {
-    console.log(to, from);
     this.$socket.emit("leave", this.id);
     next();
   },
   sockets: {
-    connect() {
-      console.log("socket connected");
-    },
-    disconnect() {
-      console.log("socket disconnected");
-    },
-    error() {
-      console.log("socket error");
-    },
     historyTexts(data) {
-      if (!this.historyTexts || this.historyTexts.length == 0) {
-        this.$store.commit("SOCKET_fetchHistoryTexts", data);
-      }
+      this.$store.commit("SOCKET_fetchHistoryTexts", data);
     },
     onlineUsers(data) {
-      console.log("onlineusers", data);
       this.onlineUsers = data;
     },
     single_thread(data) {
       // emit 資料到後端後，後端廣播回來的資料從這裡拿
-      console.log("single_thread", data);
       this.textObjs.push(data[0]);
-    },
   },
 };
 </script>
