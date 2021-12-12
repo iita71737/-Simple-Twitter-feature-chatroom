@@ -54,21 +54,22 @@ export default {
         userId: this.currentUser.id,
       });
     },
-  },
-  beforeRouteLeave(to, from, next) {
-    this.$socket.emit("leave", this.id);
-    next();
-  },
-  sockets: {
-    historyTexts(data) {
-      this.$store.commit("SOCKET_fetchHistoryTexts", data);
+    beforeRouteLeave(to, from, next) {
+      this.$socket.emit("leave", this.id);
+      next();
     },
-    onlineUsers(data) {
-      this.onlineUsers = data;
+    sockets: {
+      historyTexts(data) {
+        this.$store.commit("SOCKET_fetchHistoryTexts", data);
+      },
+      onlineUsers(data) {
+        this.onlineUsers = data;
+      },
+      single_thread(data) {
+        // emit 資料到後端後，後端廣播回來的資料從這裡拿
+        this.textObjs.push(data[0]);
+      },
     },
-    single_thread(data) {
-      // emit 資料到後端後，後端廣播回來的資料從這裡拿
-      this.textObjs.push(data[0]);
   },
 };
 </script>

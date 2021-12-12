@@ -29,13 +29,12 @@ $divider: #e6ecf0;
   flex-flow: row nowrap;
   width: 1440px;
   max-width: 1440px;
-  .chat-room-section {
-    flex: 1;
-    width: 26.7%;
-  }
-  .sidebar-section {
-    width: 26.7%;
-    padding-left: 95px;
+  .private-container {
+    width: 100%;
+    max-height: 100vh;
+    overflow-y: scroll;
+    border-left: 1px solid $divider;
+    padding: 0;
   }
 }
 </style>
